@@ -21,6 +21,8 @@ const TWELVE_HOURS = 12 * 60 * 60 * 1000; // ms
 let _httpSession;
 let _timeoutId = 0;
 
+let LIST = [];
+
 /* Code based on extensionDownloader.js from Jasper St. Pierre */
 
 /* Forked by franglais125 from
@@ -48,18 +50,31 @@ const ExtensionUpdateNotifier = new Lang.Class({
     },
 
     doNotify: function() {
-        let notification = new MessageTray.Notification(this, "Extension Updates Available", "Some of your installed extensions have updated versions available.");
-        try {
-            notification.addButton('default', "Show Updates");
-            notification.connect('action-invoked', openExtensionList);
+        let title = "Extension Updates Available";
+        let message = "Some of your installed extensions have updated versions available.\n\n";
+        message += LIST.join('\n');//
+        if (this._notifSource == null) {
+            // We have to prepare this only once
+            this._notifSource = new MessageTray.SystemNotificationSource();
+            this._notifSource.createIcon = function() {
+                return new St.Icon({ icon_name: 'system-software-install-symbolic' });
+            };
+            // Take care of note leaving unneeded sources
+            this._notifSource.connect('destroy', Lang.bind(this, function() {this._notifSource = null;}));
+            Main.messageTray.add(this._notifSource);
         }
-        catch(e) {
-            let button = new St.Button({ can_focus: true });
-            button.add_style_class_name('notification-button');
-            button.label = "Show Updates";
-            notification.addButton(button, openExtensionList);
+        let notification = null;
+        // We do not want to have multiple notifications stacked
+        // instead we will update previous
+        if (this._notifSource.notifications.length == 0) {
+            notification = new MessageTray.Notification(this._notifSource, title, message);
+            notification.addAction( _('Show updates') , openExtensionList);
+        } else {
+            notification = this._notifSource.notifications[0];
+            notification.update( title, message, { clear: true });
         }
-        this.notify(notification);
+        notification.setTransient(false);
+        this._notifSource.notify(notification);
     },
 });
 
@@ -69,6 +84,7 @@ function isLocal(uuid) {
 }
 
 function checkForUpdates() {
+    LIST = [];
     let metadatas = {};
     for (let uuid in ExtensionUtils.extensions) {
         if (isLocal(uuid))
@@ -81,10 +97,6 @@ function checkForUpdates() {
     let url = REPOSITORY_URL_UPDATE;
     let message = Soup.form_request_new_from_hash('GET', url, params);
     _httpSession.queue_message(message, function(session, message) {
-        if (message.status_code != Soup.KnownStatusCode.OK) {
-            scheduleCheck(THREE_MINUTES);
-            return;
-        }
 
         let operations = JSON.parse(message.response_body.data);
         let updatesAvailable = false;
@@ -92,8 +104,10 @@ function checkForUpdates() {
             let operation = operations[uuid];
             if (operation == 'blacklist')
                 continue;
-            else if (operation == 'upgrade')
+            else if (operation == 'upgrade') {
                 updatesAvailable = true;
+                LIST.push(uuid);
+            }
         }
 
         if (updatesAvailable) {
@@ -101,6 +115,7 @@ function checkForUpdates() {
             source.doNotify();
         }
 
+        _timeoutId = 0;
         scheduleCheck(TWELVE_HOURS);
     });
 }
