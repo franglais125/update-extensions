@@ -1,4 +1,3 @@
-
 const St = imports.gi.St;
 const Main = imports.ui.main;
 
@@ -16,13 +15,16 @@ const Mainloop = imports.mainloop;
 const REPOSITORY_URL_BASE = 'https://extensions.gnome.org';
 const REPOSITORY_URL_UPDATE = REPOSITORY_URL_BASE + '/update-info/';
 
-const THREE_MINUTES = 180 * 1000; // ms
-const TWELVE_HOURS = 12 * 3600 * 1000; // ms
+const THREE_MINUTES =      3 * 60 * 1000; // ms
+const TWELVE_HOURS = 12 * 60 * 60 * 1000; // ms
 
 let _httpSession;
 let _timeoutId = 0;
 
 /* Code based on extensionDownloader.js from Jasper St. Pierre */
+
+/* Forked by franglais125 from
+ * https://extensions.gnome.org/extension/797/extension-update-notifier/ */
 
 function init() {
     _httpSession = new Soup.SessionAsync({ ssl_use_system_ca_file: true });
@@ -90,7 +92,7 @@ function checkForUpdates() {
             let operation = operations[uuid];
             if (operation == 'blacklist')
                 continue;
-            else if (operation == 'upgrade' || operation == 'downgrade')
+            else if (operation == 'upgrade')
                 updatesAvailable = true;
         }
 
