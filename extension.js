@@ -57,7 +57,7 @@ const ExtensionUpdateNotifier = new Lang.Class({
             // We have to prepare this only once
             this._notifSource = new MessageTray.SystemNotificationSource();
             this._notifSource.createIcon = function() {
-                return new St.Icon({ icon_name: 'system-software-install-symbolic' });
+                return new St.Icon({ icon_name: 'software-update-available-symbolic' });
             };
             // Take care of note leaving unneeded sources
             this._notifSource.connect('destroy', Lang.bind(this, function() {this._notifSource = null;}));
