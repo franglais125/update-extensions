@@ -16,15 +16,20 @@ const Mainloop = imports.mainloop;
 const REPOSITORY_URL_BASE = 'https://extensions.gnome.org';
 const REPOSITORY_URL_UPDATE = REPOSITORY_URL_BASE + '/update-info/';
 
-const THREE_MINUTES = 180 * 1000; // ms
-const TWELVE_HOURS = 12 * 3600 * 1000; // ms
+const THREE_MINUTES =      3 * 60 * 1000; // ms
+const TWELVE_HOURS = 12 * 60 * 60 * 1000; // ms
 
 let _httpSession;
 let _timeoutId = 0;
 
 let LIST = [];
+let batches = 0;
+let nBatch = 0;
 
 /* Code based on extensionDownloader.js from Jasper St. Pierre */
+
+/* Forked by franglais125 from
+ * https://extensions.gnome.org/extension/797/extension-update-notifier/ */
 
 function init() {
     _httpSession = new Soup.SessionAsync({ ssl_use_system_ca_file: true });
@@ -38,43 +43,45 @@ function openExtensionList() {
     Gio.app_info_launch_default_for_uri('https://extensions.gnome.org/local', global.create_app_launch_context(0, -1));
 }
 
-const ExtensionUpdateNotifier = new Lang.Class({
-    Name: 'ExtensionUpdateNotifier',
-    Extends: MessageTray.Source,
+function doNotify() {
+    let title = "Extension Updates Available";
+    let message = "Some of your installed extensions have updated versions available.\n\n";
+    message += LIST.join('\n');//
 
-    _init: function() {
-        this.parent('', 'software-update-available');
-        Main.messageTray.add(this);
-    },
+    let notifSource = new MessageTray.SystemNotificationSource();
+    notifSource.createIcon = function() {
+        return new St.Icon({ icon_name: 'software-update-available-symbolic' });
+    };
+    // Take care of note leaving unneeded sources
+    notifSource.connect('destroy', function() {notifSource = null;});
+    Main.messageTray.add(notifSource);
 
-    doNotify: function() {
-        let title = "Extension Updates Available";
-        let message = "Some of your installed extensions have updated versions available.\n\n";
-        message += LIST.join('\n');//
-        if (this._notifSource == null) {
-            // We have to prepare this only once
-            this._notifSource = new MessageTray.SystemNotificationSource();
-            this._notifSource.createIcon = function() {
-                return new St.Icon({ icon_name: 'software-update-available-symbolic' });
-            };
-            // Take care of note leaving unneeded sources
-            this._notifSource.connect('destroy', Lang.bind(this, function() {this._notifSource = null;}));
-            Main.messageTray.add(this._notifSource);
+    let notification = null;
+    // We do not want to have multiple notifications stacked
+    // instead we will update previous
+    if (notifSource.notifications.length == 0) {
+        notification = new MessageTray.Notification(notifSource, title, message);
+        notification.addAction( _('Show updates') , openExtensionList);
+    } else {
+        notification = notifSource.notifications[0];
+        notification.update( title, message, { clear: true });
+    }
+    notification.setTransient(false);
+    notifSource.notify(notification);
+}
+
+function getMetadata(i) {
+    let metadatas = {};
+    let counter = 0;
+    for (let uuid in ExtensionUtils.extensions) {
+        if (isLocal(uuid) && typeof ExtensionUtils.extensions[uuid].metadata.version == 'number') {
+            counter++;
+            if (i*10 <= counter && counter < (i+1)*10)
+                metadatas[uuid] = ExtensionUtils.extensions[uuid].metadata;
         }
-        let notification = null;
-        // We do not want to have multiple notifications stacked
-        // instead we will update previous
-        if (this._notifSource.notifications.length == 0) {
-            notification = new MessageTray.Notification(this._notifSource, title, message);
-            notification.addAction( _('Show updates') , openExtensionList);
-        } else {
-            notification = this._notifSource.notifications[0];
-            notification.update( title, message, { clear: true });
-        }
-        notification.setTransient(false);
-        this._notifSource.notify(notification);
-    },
-});
+    }
+    return metadatas;
+}
 
 function isLocal(uuid) {
     let extension = ExtensionUtils.extensions[uuid];
@@ -82,40 +89,53 @@ function isLocal(uuid) {
 }
 
 function checkForUpdates() {
+    // Reset batch number and list of updates
+    nBatch = 0;
     LIST = [];
-    let metadatas = {};
-    for (let uuid in ExtensionUtils.extensions) {
-        if (isLocal(uuid))
-            metadatas[uuid] = ExtensionUtils.extensions[uuid].metadata;
+
+    // In groups of 10 or less, not to overload the server
+    let countExtensions = 0;
+    for (let uuid in ExtensionUtils.extensions)
+        if (isLocal(uuid) && typeof ExtensionUtils.extensions[uuid].metadata.version == 'number')
+            countExtensions++;
+
+    batches = Math.ceil(countExtensions/10.);
+
+    for (let i = 0; i < batches; i++) {
+        // We get batches of 10
+        let metadatas = getMetadata(i);
+        let params = { shell_version: Config.PACKAGE_VERSION,
+                       installed: JSON.stringify(metadatas) };
+
+        let url = REPOSITORY_URL_UPDATE;
+        let message = Soup.form_request_new_from_hash('GET', url, params);
+        _httpSession.queue_message(message, function(session, message) {
+
+            let operations = JSON.parse(message.response_body.data);
+            for (let uuid in operations) {
+                let operation = operations[uuid];
+                if (operation == 'blacklist')
+                    continue;
+                else if (operation == 'upgrade' || operation == 'downgrade')
+                    LIST.push(ExtensionUtils.extensions[uuid].metadata.name);
+            }
+
+            if (hasFinished() && LIST.length > 0) {
+                doNotify();
+            }
+        });
+
+
     }
 
-    let params = { shell_version: Config.PACKAGE_VERSION,
-                   installed: JSON.stringify(metadatas) };
 
-    let url = REPOSITORY_URL_UPDATE;
-    let message = Soup.form_request_new_from_hash('GET', url, params);
-    _httpSession.queue_message(message, function(session, message) {
+    _timeoutId = 0;
+    scheduleCheck(TWELVE_HOURS);
+}
 
-        let operations = JSON.parse(message.response_body.data);
-        let updatesAvailable = false;
-        for (let uuid in operations) {
-            let operation = operations[uuid];
-            if (operation == 'blacklist')
-                continue;
-            else if (operation == 'upgrade' || operation == 'downgrade') {
-                updatesAvailable = true;
-                LIST.push(uuid);
-            }
-        }
-
-        if (updatesAvailable) {
-            let source = new ExtensionUpdateNotifier();
-            source.doNotify();
-        }
-
-        _timeoutId = 0;
-        scheduleCheck(TWELVE_HOURS);
-    });
+function hasFinished() {
+    nBatch++;
+    return nBatch == batches;
 }
 
 function scheduleCheck(timeout) {
