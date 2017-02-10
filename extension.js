@@ -74,7 +74,7 @@ function getMetadata(i) {
     let metadatas = {};
     let counter = 0;
     for (let uuid in ExtensionUtils.extensions) {
-        if (isLocal(uuid) && typeof ExtensionUtils.extensions[uuid].metadata.version == 'number') {
+        if (isValid) {
             counter++;
             if (i*10 <= counter && counter < (i+1)*10)
                 metadatas[uuid] = ExtensionUtils.extensions[uuid].metadata;
@@ -83,9 +83,9 @@ function getMetadata(i) {
     return metadatas;
 }
 
-function isLocal(uuid) {
-    let extension = ExtensionUtils.extensions[uuid];
-    return extension.path.indexOf(GLib.get_home_dir()) != -1;
+function isValid(uuid) {
+    let output = typeof ExtensionUtils.extensions[uuid].metadata.version == 'number';
+    return output;
 }
 
 function checkForUpdates() {
@@ -96,7 +96,7 @@ function checkForUpdates() {
     // In groups of 10 or less, not to overload the server
     let countExtensions = 0;
     for (let uuid in ExtensionUtils.extensions)
-        if (isLocal(uuid) && typeof ExtensionUtils.extensions[uuid].metadata.version == 'number')
+        if (isValid)
             countExtensions++;
 
     batches = Math.ceil(countExtensions/10.);
