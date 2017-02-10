@@ -22,6 +22,8 @@ const TWELVE_HOURS = 12 * 60 * 60 * 1000; // ms
 let _httpSession;
 let _timeoutId = 0;
 
+let metadatas = {};
+
 let LIST = [];
 let batches = 0;
 let nBatch = 0;
@@ -70,42 +72,52 @@ function doNotify() {
     notifSource.notify(notification);
 }
 
-function getMetadata(i) {
-    let metadatas = {};
-    let counter = 0;
+function setMetadata() {
+    // Reset
+    metadatas = {};
+
+    let countValidExtensions = 0;
     for (let uuid in ExtensionUtils.extensions) {
-        if (isValid) {
-            counter++;
-            if (i*10 <= counter && counter < (i+1)*10)
-                metadatas[uuid] = ExtensionUtils.extensions[uuid].metadata;
+        if (typeof ExtensionUtils.extensions[uuid].metadata.version == 'number') {
+            metadatas[uuid] = ExtensionUtils.extensions[uuid].metadata;
+            countValidExtensions++;
+        }
+        else if (typeof ExtensionUtils.extensions[uuid].metadata.version == 'undefined') {
+            // Some extensions, especially global, have no version
+            metadatas[uuid] = ExtensionUtils.extensions[uuid].metadata;
+            metadatas[uuid].version = 1;
+            countValidExtensions++;
         }
     }
-    return metadatas;
+
+    // In groups of 10 or less, not to overload the server
+    batches = Math.ceil(countValidExtensions/10.);
 }
 
-function isValid(uuid) {
-    let output = typeof ExtensionUtils.extensions[uuid].metadata.version == 'number';
-    return output;
+function getMetadata(i) {
+    let batchMetadatas = {};
+    let counter = 0;
+    for (let uuid in metadatas) {
+        if (i*10 <= counter && counter < (i+1)*10)
+            batchMetadatas[uuid] = metadatas[uuid];
+        counter++;
+    }
+    return batchMetadatas;
 }
 
 function checkForUpdates() {
+    // Look for all metadatas first
+    setMetadata();
+
     // Reset batch number and list of updates
     nBatch = 0;
     LIST = [];
 
-    // In groups of 10 or less, not to overload the server
-    let countExtensions = 0;
-    for (let uuid in ExtensionUtils.extensions)
-        if (isValid)
-            countExtensions++;
-
-    batches = Math.ceil(countExtensions/10.);
-
     for (let i = 0; i < batches; i++) {
         // We get batches of 10
-        let metadatas = getMetadata(i);
+        let batchMetadatas = getMetadata(i);
         let params = { shell_version: Config.PACKAGE_VERSION,
-                       installed: JSON.stringify(metadatas) };
+                       installed: JSON.stringify(batchMetadatas) };
 
         let url = REPOSITORY_URL_UPDATE;
         let message = Soup.form_request_new_from_hash('GET', url, params);
