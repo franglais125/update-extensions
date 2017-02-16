@@ -90,15 +90,15 @@ function setMetadata() {
         }
     }
 
-    // In groups of 3 or less, not to overload the server
-    batches = Math.ceil(countValidExtensions/3.);
+    // In groups of 10 or less, not to overload the server
+    batches = Math.ceil(countValidExtensions/10.);
 }
 
 function getMetadata(i) {
     let batchMetadatas = {};
     let counter = 0;
     for (let uuid in metadatas) {
-        if (i*3 <= counter && counter < (i+1)*3)
+        if (i*10 <= counter && counter < (i+1)*10)
             batchMetadatas[uuid] = { version: metadatas[uuid].version };
         counter++;
     }
@@ -114,7 +114,7 @@ function checkForUpdates() {
     LIST = [];
 
     for (let i = 0; i < batches; i++) {
-        // We get batches of 3
+        // We get batches of 10
         let batchMetadatas = getMetadata(i);
         let params = { shell_version: Config.PACKAGE_VERSION,
                        installed: JSON.stringify(batchMetadatas) };
