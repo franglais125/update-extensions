@@ -99,7 +99,7 @@ function getMetadata(i) {
     let counter = 0;
     for (let uuid in metadatas) {
         if (i*3 <= counter && counter < (i+1)*3)
-            batchMetadatas[uuid] = metadatas[uuid];
+            batchMetadatas[uuid] = { version: metadatas[uuid].version };
         counter++;
     }
     return batchMetadatas;
