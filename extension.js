@@ -79,21 +79,30 @@ function doNotify() {
     notifSource.notify(notification);
 }
 
+function isLocal(uuid) {
+    if (settings.get_boolean('system-wide-ext'))
+        return true;
+    let extension = ExtensionUtils.extensions[uuid];
+    return extension.path.indexOf(GLib.get_home_dir()) != -1;
+}
+
 function setMetadata() {
     // Reset
     metadatas = {};
 
     let countValidExtensions = 0;
     for (let uuid in ExtensionUtils.extensions) {
-        if (typeof ExtensionUtils.extensions[uuid].metadata.version == 'number') {
-            metadatas[uuid] = ExtensionUtils.extensions[uuid].metadata;
-            countValidExtensions++;
-        }
-        else if (typeof ExtensionUtils.extensions[uuid].metadata.version == 'undefined') {
-            // Some extensions, especially global, have no version
-            metadatas[uuid] = ExtensionUtils.extensions[uuid].metadata;
-            metadatas[uuid].version = 1;
-            countValidExtensions++;
+        if (isLocal(uuid)) {
+            if (typeof ExtensionUtils.extensions[uuid].metadata.version == 'number') {
+                metadatas[uuid] = ExtensionUtils.extensions[uuid].metadata;
+                countValidExtensions++;
+            }
+            else if (typeof ExtensionUtils.extensions[uuid].metadata.version == 'undefined') {
+                // Some extensions, especially global, have no version
+                metadatas[uuid] = ExtensionUtils.extensions[uuid].metadata;
+                metadatas[uuid].version = 1;
+                countValidExtensions++;
+            }
         }
     }
 
@@ -200,6 +209,7 @@ function enable() {
 
     settings.connect('changed::check-interval', scheduleCheck);
     settings.connect('changed::interval-unit', scheduleCheck);
+
     scheduleCheck();
 }
 

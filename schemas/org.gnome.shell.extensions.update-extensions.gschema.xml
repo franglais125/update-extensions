@@ -33,5 +33,11 @@
       <description>This is stored and used on the next boot.</description>
     </key>
 
+    <key name="system-wide-ext" type="b">
+      <default>false</default>
+        <summary>Check for updates for all extensions, including system-wide ones</summary>
+        <description></description>
+    </key>
+
   </schema>
 </schemalist>

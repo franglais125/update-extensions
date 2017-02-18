@@ -31,17 +31,23 @@ function buildPrefsWidget(){
                   'value',
                   Gio.SettingsBindFlags.DEFAULT);
 
-    // Transient notifications
-    settings.bind('transient',
-                  buildable.get_object('transient_notifications'),
-                  'active',
-                  Gio.SettingsBindFlags.DEFAULT);
-
     // Hours, days or weeks
     buildable.get_object('interval_unit_combo').connect('changed', function(widget) {
         settings.set_enum('interval-unit', widget.get_active());
     });
     buildable.get_object('interval_unit_combo').set_active(settings.get_enum('interval-unit'));
+
+    // System-wide extensions
+    settings.bind('system-wide-ext',
+                  buildable.get_object('system_wide_ext'),
+                  'active',
+                  Gio.SettingsBindFlags.DEFAULT);
+
+    // Transient notifications
+    settings.bind('transient',
+                  buildable.get_object('transient_notifications'),
+                  'active',
+                  Gio.SettingsBindFlags.DEFAULT);
 
     box.show_all();
 
