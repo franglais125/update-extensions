@@ -1,4 +1,3 @@
-
 const St = imports.gi.St;
 const Main = imports.ui.main;
 
@@ -8,16 +7,22 @@ const Soup = imports.gi.Soup;
 const Lang = imports.lang;
 
 const Config = imports.misc.config;
-const ExtensionUtils = imports.misc.extensionUtils;
 const ExtensionSystem = imports.ui.extensionSystem;
 const MessageTray = imports.ui.messageTray;
 const Mainloop = imports.mainloop;
 
-const REPOSITORY_URL_BASE = 'https://extensions.gnome.org';
-const REPOSITORY_URL_UPDATE = REPOSITORY_URL_BASE + '/update-info/';
+const Util = imports.misc.util;
+const ExtensionUtils = imports.misc.extensionUtils;
+const Me = ExtensionUtils.getCurrentExtension();
+const Utils = Me.imports.utils;
 
-const THREE_MINUTES =      3 * 60 * 1000; // ms
-const TWELVE_HOURS = 12 * 60 * 60 * 1000; // ms
+const Format = imports.format;
+const Gettext = imports.gettext.domain('update-extensions');
+const _ = Gettext.gettext;
+
+const REPOSITORY_URL_UPDATE = 'https://extensions.gnome.org/update-info/';
+
+let settings;
 
 let _httpSession;
 let _timeoutId = 0;
@@ -34,6 +39,8 @@ let nBatch = 0;
  * https://extensions.gnome.org/extension/797/extension-update-notifier/ */
 
 function init() {
+    Utils.initTranslations('update-extensions');
+
     _httpSession = new Soup.SessionAsync({ ssl_use_system_ca_file: true });
 
     // See: https://bugzilla.gnome.org/show_bug.cgi?id=655189 for context.
@@ -46,8 +53,8 @@ function openExtensionList() {
 }
 
 function doNotify() {
-    let title = "Extension Updates Available";
-    let message = "Some of your installed extensions have updated versions available.\n\n";
+    let title = _('Extension Updates Available');
+    let message = _('Some of your installed extensions have updated versions available.\n\n');
     message += LIST.join('\n');//
 
     let notifSource = new MessageTray.SystemNotificationSource();
@@ -68,7 +75,7 @@ function doNotify() {
         notification = notifSource.notifications[0];
         notification.update( title, message, { clear: true });
     }
-    notification.setTransient(false);
+    notification.setTransient(settings.get_boolean('transient'));
     notifSource.notify(notification);
 }
 
@@ -140,9 +147,8 @@ function checkForUpdates() {
 
     }
 
-
     _timeoutId = 0;
-    scheduleCheck(TWELVE_HOURS);
+    scheduleCheck();
 }
 
 function hasFinished() {
@@ -150,16 +156,37 @@ function hasFinished() {
     return nBatch == batches;
 }
 
-function scheduleCheck(timeout) {
+function scheduleCheck() {
     if (_timeoutId != 0) {
         Mainloop.source_remove (_timeoutId);
     }
 
+    let unit = settings.get_enum('interval-unit');
+    let conversion = 0;
+
+    switch (unit) {
+    case 0: // Hours
+        conversion =          60 * 60 * 1000;
+        break;
+    case 1: // Days
+        conversion =     24 * 60 * 60 * 1000;
+        break;
+    case 2: // Weeks
+        conversion = 7 * 24 * 60 * 60 * 1000;
+        break;
+    }
+
+    let timeout = conversion * settings.get_int('check-interval');
     _timeoutId = Mainloop.timeout_add(timeout, checkForUpdates);
 }
 
 function enable() {
-    scheduleCheck(THREE_MINUTES);
+    // Load settings
+    settings = Utils.getSettings();
+
+    settings.connect('changed::check-interval', scheduleCheck);
+    settings.connect('changed::interval-unit', scheduleCheck);
+    scheduleCheck();
 }
 
 function disable() {
@@ -167,4 +194,7 @@ function disable() {
         Mainloop.source_remove (_timeoutId);
         _timeoutId = 0;
     }
+
+    settings.run_dispose();
+    settings = null;
 }

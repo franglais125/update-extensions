@@ -1,7 +1,7 @@
 # Basic Makefile
 
 UUID = update-extensions@franglais125.gmail.com
-BASE_MODULES = extension.js metadata.json
+BASE_MODULES = extension.js prefs.js utils.js metadata.json Settings.ui
 TOLOCALIZE = extension.js
 INSTALLNAME = update-extensions@franglais125.gmail.com
 ifeq ($(strip $(DESTDIR)),)
@@ -21,6 +21,16 @@ else
 	VSTRING =
 endif
 
+all: extension
+
+clean:
+	rm -f ./schemas/gschemas.compiled
+
+extension: ./schemas/gschemas.compiled $(MSGSRC:.po=.mo)
+
+./schemas/gschemas.compiled: ./schemas/org.gnome.shell.extensions.update-extensions.gschema.xml
+	glib-compile-schemas ./schemas/
+
 install: install-local
 
 install-local: _build
@@ -36,8 +46,11 @@ zip-file: _build
 	mv _build/$(UUID)$(VSTRING).zip ./
 	-rm -fR _build
 
-_build:
+_build: all
 	-rm -fR ./_build
 	mkdir -p _build
 	cp $(BASE_MODULES) _build
+	mkdir -p _build/schemas
+	cp schemas/*.xml _build/schemas/
+	cp schemas/gschemas.compiled _build/schemas/
 	sed -i 's/"version": -1/"version": "$(VERSION)"/'  _build/metadata.json;
