@@ -25,15 +25,19 @@ function buildPrefsWidget(){
     buildable.get_object('extension_version').set_text(Me.metadata.version.toString());
 
     // Basic settings tab:
-    // Check updates
+    // Update interval
     settings.bind('check-interval',
                   buildable.get_object('interval'),
                   'value',
                   Gio.SettingsBindFlags.DEFAULT);
+
+    // Transient notifications
     settings.bind('transient',
                   buildable.get_object('transient_notifications'),
                   'active',
                   Gio.SettingsBindFlags.DEFAULT);
+
+    // Hours, days or weeks
     buildable.get_object('interval_unit_combo').connect('changed', function(widget) {
         settings.set_enum('interval-unit', widget.get_active());
     });

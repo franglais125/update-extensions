@@ -153,31 +153,45 @@ function checkForUpdates() {
 
 function hasFinished() {
     nBatch++;
+    if (nBatch == batches)
+        settings.set_double('last-check-date-double', new Date());
+
     return nBatch == batches;
 }
 
 function scheduleCheck() {
-    if (_timeoutId != 0) {
+    if (_timeoutId != 0)
         Mainloop.source_remove (_timeoutId);
-    }
 
     let unit = settings.get_enum('interval-unit');
     let conversion = 0;
 
     switch (unit) {
     case 0: // Hours
-        conversion =          60 * 60 * 1000;
+        conversion =          60 * 60;
         break;
     case 1: // Days
-        conversion =     24 * 60 * 60 * 1000;
+        conversion =     24 * 60 * 60;
         break;
     case 2: // Weeks
-        conversion = 7 * 24 * 60 * 60 * 1000;
+        conversion = 7 * 24 * 60 * 60;
         break;
     }
 
     let timeout = conversion * settings.get_int('check-interval');
-    _timeoutId = Mainloop.timeout_add(timeout, checkForUpdates);
+
+    // Check how much time passed since the last check
+    let last_check = settings.get_double('last-check-date-double');
+    let now = new Date();
+    let elapsed = (now - last_check)/1000; // Milliseconds to seconds
+
+    // If the difference is negative, we should perform a check soon
+    timeout -= elapsed;
+    if (timeout < 0) {
+        timeout = 120;
+    }
+
+    _timeoutId = Mainloop.timeout_add_seconds(timeout, checkForUpdates);
 }
 
 function enable() {
