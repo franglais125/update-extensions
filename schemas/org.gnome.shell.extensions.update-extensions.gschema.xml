@@ -16,7 +16,7 @@
     </key>
 
     <key name="transient" type="b">
-      <default>true</default>
+      <default>false</default>
         <summary>Use transient notifications (auto dismiss)</summary>
         <description></description>
     </key>
