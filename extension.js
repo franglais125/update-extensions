@@ -194,11 +194,10 @@ function scheduleCheck() {
     let now = new Date();
     let elapsed = (now - last_check)/1000; // Milliseconds to seconds
 
-    // If the difference is negative, we should perform a check soon
+    // If the difference is low, we should perform a check soon
     timeout -= elapsed;
-    if (timeout < 0) {
+    if (timeout < 120)
         timeout = 120;
-    }
 
     _timeoutId = Mainloop.timeout_add_seconds(timeout, checkForUpdates);
 }
