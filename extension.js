@@ -156,7 +156,6 @@ function checkForUpdates() {
 
     }
 
-    _timeoutId = 0;
     scheduleCheck();
 }
 
@@ -169,8 +168,10 @@ function hasFinished() {
 }
 
 function scheduleCheck() {
-    if (_timeoutId != 0)
-        Mainloop.source_remove (_timeoutId);
+    if (_timeoutId != 0) {
+        Mainloop.source_remove(_timeoutId);
+        _timeoutId = 0;
+    }
 
     let unit = settings.get_enum('interval-unit');
     let conversion = 0;
