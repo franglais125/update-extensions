@@ -1,0 +1,96 @@
+# Extension Update Notifier.
+# Copyright (C) 2017
+# This file is distributed under the same license as the Extension Update Notifier package.
+# Fran Glais <franglais125@gmail.com>, 2017.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Extension Update Notifier\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-07-30 16:04-0400\n"
+"PO-Revision-Date: 2017-07-30 16:04-0400\n"
+"Last-Translator: Fran Glais <franglais125@gmail.com>\n"
+"Language-Team: \n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: extension.js:56
+msgid "Extension Updates Available"
+msgstr "Actualizaciones de extensiones disponibles"
+
+#: extension.js:57
+msgid ""
+"Some of your installed extensions have updated versions available.\n"
+"\n"
+msgstr ""
+"Algunas des sus extensiones tienen actualizaciones disponibles.\n\n"
+
+#: extension.js:73
+msgid "Show updates"
+msgstr "Mostrar actualizaciones"
+
+#: Settings.ui.h:1
+msgid "Check for updates every:"
+msgstr "Comprobar actualizaciones cada:"
+
+#: Settings.ui.h:2
+msgid "Hours"
+msgstr "Horas"
+
+#: Settings.ui.h:3
+msgid "Days"
+msgstr "Días"
+
+#: Settings.ui.h:4
+msgid "Weeks"
+msgstr "Semanas"
+
+#: Settings.ui.h:5
+msgid "Check for updates for system-wide extensions"
+msgstr "Comprobar actualizaciones para extensiones instaladas en todo el sistema"
+
+#: Settings.ui.h:6
+msgid "System-wide extensions are usually installed via a package manager"
+msgstr "Las extensiones para todo el sistema en general son instaladas por el"
+" administrador de paquetes"
+
+#: Settings.ui.h:7
+msgid "Use transient notifications (auto dismiss)"
+msgstr "Usar notificaciones transitorias (auto cierre)"
+
+#: Settings.ui.h:8
+msgid "Basic settings"
+msgstr "Ajustes básicos"
+
+#: Settings.ui.h:9
+msgid "version: "
+msgstr "versión: "
+
+#: Settings.ui.h:10
+msgid "Checks for Gnome-Shell extension updates"
+msgstr "Comprueba actualizaciones de extensiones de Gnome'Shell"
+
+#: Settings.ui.h:11
+msgid "Maintained by"
+msgstr "Maintenido por"
+
+#: Settings.ui.h:12
+msgid "Webpage"
+msgstr "Sitio Web"
+
+#: Settings.ui.h:13
+msgid ""
+"<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
+"Sethe <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html\">GNU "
+"General Public License, version 2 or later</a> for details.</span>"
+msgstr ""
+"<span size=\"small\">Este programa viene SIN NINGUNA GARANTÍA.\n"
+"Consulte la <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"
+"\">Licencia Pública General de GNU, versión 2 o posterior</a> para obtener "
+"más detalles.</span>"
+
+#: Settings.ui.h:15
+msgid "About"
+msgstr "Acerca de"
