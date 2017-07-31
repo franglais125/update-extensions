@@ -1,0 +1,99 @@
+# Extension Update Notifier.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the Extension Update Notifier package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-07-31 14:57+0300\n"
+"PO-Revision-Date: 2017-07-31 15:10+0300\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.2\n"
+"Last-Translator: Alex Gluck <alexgluck@bk.ru>\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Language: ru_RU\n"
+
+#: extension.js:56
+msgid "Extension Updates Available"
+msgstr "Доступны обновления расширений"
+
+#: extension.js:57
+msgid ""
+"Some of your installed extensions have updated versions available.\n"
+"\n"
+msgstr ""
+"Для нескольких установленных расширений доступны обновления.\n"
+"\n"
+
+#: extension.js:73
+msgid "Show updates"
+msgstr "Показать обновления"
+
+#: Settings.ui.h:1
+msgid "Check for updates every:"
+msgstr "Проверять обновления каждые:"
+
+#: Settings.ui.h:2
+msgid "Hours"
+msgstr "Часов"
+
+#: Settings.ui.h:3
+msgid "Days"
+msgstr "Дней"
+
+#: Settings.ui.h:4
+msgid "Weeks"
+msgstr "Недель"
+
+#: Settings.ui.h:5
+msgid "Check for updates for system-wide extensions"
+msgstr "Проверять обновления для системных расширений"
+
+#: Settings.ui.h:6
+msgid "System-wide extensions are usually installed via a package manager"
+msgstr "Системные расширения установленные через штатный пакетный менеджер"
+
+#: Settings.ui.h:7
+msgid "Use transient notifications (auto dismiss)"
+msgstr "Включить временные уведомления (автоскрытие)"
+
+#: Settings.ui.h:8
+msgid "Basic settings"
+msgstr "Настройки"
+
+#: Settings.ui.h:9
+msgid "version: "
+msgstr "версия: "
+
+#: Settings.ui.h:10
+msgid "Checks for Gnome-Shell extension updates"
+msgstr "Проверка обновлений для расширений Gnome-Shell"
+
+#: Settings.ui.h:11
+msgid "Maintained by"
+msgstr "Разработано"
+
+#: Settings.ui.h:12
+msgid "Webpage"
+msgstr "Страница расширения"
+
+#: Settings.ui.h:13
+msgid ""
+"<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
+"Sethe <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html\">GNU "
+"General Public License, version 2 or later</a> for details.</span>"
+msgstr ""
+"<span size=\"small\">Эта программа поставляет абсолютно без каких либо "
+"гарантий.\n"
+"Под лицензией <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0."
+"html\">GNU General Public License, version 2 or later</a></span>"
+
+#: Settings.ui.h:15
+msgid "About"
+msgstr "О расширении"
