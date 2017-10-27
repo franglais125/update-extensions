@@ -1,0 +1,100 @@
+# Extension Update Notifier.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the Extension Update Notifier package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-10-27 20:59+0300\n"
+"PO-Revision-Date: 2017-10-27 21:04+0300\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.7.1\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos+l10n@iki.fi>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: fi\n"
+
+#: extension.js:56
+msgid "Extension Updates Available"
+msgstr "Laajennuspäivityksiä saatavilla"
+
+#: extension.js:57
+msgid ""
+"Some of your installed extensions have updated versions available.\n"
+"\n"
+msgstr ""
+"Jotkin asentamistasi laajennuksista on mahdollista päivittää.\n"
+"\n"
+
+#: extension.js:73
+msgid "Show updates"
+msgstr "Näytä päivitykset"
+
+#: Settings.ui.h:1
+msgid "Check for updates every:"
+msgstr "Tarkista päivitykset:"
+
+#: Settings.ui.h:2
+msgid "Hours"
+msgstr "tunnin välein"
+
+#: Settings.ui.h:3
+msgid "Days"
+msgstr "päivän välein"
+
+#: Settings.ui.h:4
+msgid "Weeks"
+msgstr "viikon välein"
+
+#: Settings.ui.h:5
+msgid "Check for updates for system-wide extensions"
+msgstr "Tarkista järjestelmänlaajuisten laajennusten päivitykset"
+
+#: Settings.ui.h:6
+msgid "System-wide extensions are usually installed via a package manager"
+msgstr ""
+"Järjestelmänlaajuiset laajennukset on yleensä asennettu paketinhallinnan "
+"kautta"
+
+#: Settings.ui.h:7
+msgid "Use transient notifications (auto dismiss)"
+msgstr "Käytä piiloon meneviä ilmoituksia"
+
+#: Settings.ui.h:8
+msgid "Basic settings"
+msgstr "Perusasetukset"
+
+#: Settings.ui.h:9
+msgid "version: "
+msgstr "versio: "
+
+#: Settings.ui.h:10
+msgid "Checks for Gnome-Shell extension updates"
+msgstr "Tarkistaa Gnome Shell -laajennusten päivitykset"
+
+#: Settings.ui.h:11
+msgid "Maintained by"
+msgstr "Ylläpitäjä"
+
+#: Settings.ui.h:12
+msgid "Webpage"
+msgstr "Verkkosivusto"
+
+#: Settings.ui.h:13
+msgid ""
+"<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
+"Sethe <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html\">GNU "
+"General Public License, version 2 or later</a> for details.</span>"
+msgstr ""
+"<span size=\"small\">Tämä ohjelma ei sisällä MINKÄÄNLAISTA TAKUUTA.\n"
+"Tutustu <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"
+"\">GNU General Public License -lisenssin versioon 2 tai uudempaan </a> "
+"saadaksesi lisätietoja.</span>"
+
+#: Settings.ui.h:15
+msgid "About"
+msgstr "Tietoja"
