@@ -1,0 +1,98 @@
+# Extension Update Notifier.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the Extension Update Notifier package.
+# Pavel Borecki <pavel.borecki@gmail.com>, 2018.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-07-30 16:04-0400\n"
+"PO-Revision-Date: 2018-08-10 15:33+0200\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.6\n"
+"Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"Language: cs\n"
+
+#: extension.js:56
+msgid "Extension Updates Available"
+msgstr "Jsou k dispozici novější verze rozšíření"
+
+#: extension.js:57
+msgid ""
+"Some of your installed extensions have updated versions available.\n"
+"\n"
+msgstr "Jsou k dispozici novější verze některých nainstalovaných rozšíření.\n"
+
+#: extension.js:73
+msgid "Show updates"
+msgstr "Zobrazit aktualizace"
+
+#: Settings.ui.h:1
+msgid "Check for updates every:"
+msgstr "Zjišťovat dostupnost nových verzí každých:"
+
+#: Settings.ui.h:2
+msgid "Hours"
+msgstr "Hodin"
+
+#: Settings.ui.h:3
+msgid "Days"
+msgstr "Dnů"
+
+#: Settings.ui.h:4
+msgid "Weeks"
+msgstr "Týdnů"
+
+#: Settings.ui.h:5
+msgid "Check for updates for system-wide extensions"
+msgstr "Zjišťovat novější verze i u rozšíření nainstalovaných pro celý systém"
+
+#: Settings.ui.h:6
+msgid "System-wide extensions are usually installed via a package manager"
+msgstr ""
+"Rozšíření instalovaná pro celý systém jsou obvykle instalována přes "
+"systémovou správu balíčků"
+
+#: Settings.ui.h:7
+msgid "Use transient notifications (auto dismiss)"
+msgstr ""
+"Oznámení ponechat zobrazené vždy jen na chvíli, pak automaticky zavírat"
+
+#: Settings.ui.h:8
+msgid "Basic settings"
+msgstr "Základní nastavení"
+
+#: Settings.ui.h:9
+msgid "version: "
+msgstr "verze: "
+
+#: Settings.ui.h:10
+msgid "Checks for Gnome-Shell extension updates"
+msgstr "Zjišťuje aktualizace rozšíření pro Gnome-Shell"
+
+#: Settings.ui.h:11
+msgid "Maintained by"
+msgstr "Vyvíjí"
+
+#: Settings.ui.h:12
+msgid "Webpage"
+msgstr "Webová stránka"
+
+#: Settings.ui.h:13
+msgid ""
+"<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
+"Sethe <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html\">GNU "
+"General Public License, version 2 or later</a> for details.</span>"
+msgstr ""
+"<span size=\"small\">Tento program přichází BEZ JAKÝCHKOLI ZÁRUK.\n"
+"Podrobnosti viz <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0."
+"html\">GNU General Public License, verze 2 nebo novější</a>.</span>"
+
+#: Settings.ui.h:15
+msgid "About"
+msgstr "O tomto rozšíření"
