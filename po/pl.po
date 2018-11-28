@@ -33,7 +33,7 @@ msgstr ""
 
 #: extension.js:73
 msgid "Show updates"
-msgstr "Pokazuj aktualizacje"
+msgstr "Pokaż aktualizacje"
 
 #: Settings.ui.h:1
 msgid "Check for updates every:"
