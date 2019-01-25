@@ -1,0 +1,98 @@
+# Extension Update Notifier.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the Extension Update Notifier package.
+# Serdar Sağlam <teknomobil@yandex.com>, 2019.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-07-30 16:04-0400\n"
+"PO-Revision-Date: 2019-01-25 09:19+0300\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2.1\n"
+"Last-Translator: Serdar Sağlam <teknomobil@yandex.com>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: tr\n"
+
+#: extension.js:56
+msgid "Extension Updates Available"
+msgstr "Eklenti Güncellemesi Mevcut"
+
+#: extension.js:57
+msgid ""
+"Some of your installed extensions have updated versions available.\n"
+"\n"
+msgstr ""
+"Yüklü eklentilerden bazılarının güncellenmiş sürümleri var.\n"
+"\n"
+
+#: extension.js:73
+msgid "Show updates"
+msgstr "Güncellemeleri göster"
+
+#: Settings.ui.h:1
+msgid "Check for updates every:"
+msgstr "Güncelleme kontrol sıklığı:"
+
+#: Settings.ui.h:2
+msgid "Hours"
+msgstr "Saatlik"
+
+#: Settings.ui.h:3
+msgid "Days"
+msgstr "Günlük"
+
+#: Settings.ui.h:4
+msgid "Weeks"
+msgstr "Haftalık"
+
+#: Settings.ui.h:5
+msgid "Check for updates for system-wide extensions"
+msgstr "Dahili gelen eklentiler için güncellemeleri kontrol edin"
+
+#: Settings.ui.h:6
+msgid "System-wide extensions are usually installed via a package manager"
+msgstr ""
+"Dahili gelen eklentiler genellikle bir paket yöneticisi tarafından yüklenir"
+
+#: Settings.ui.h:7
+msgid "Use transient notifications (auto dismiss)"
+msgstr "Geçici bildirimleri kullan (otomatik kapatma)"
+
+#: Settings.ui.h:8
+msgid "Basic settings"
+msgstr "Basit ayarlar"
+
+#: Settings.ui.h:9
+msgid "version: "
+msgstr "sürüm: "
+
+#: Settings.ui.h:10
+msgid "Checks for Gnome-Shell extension updates"
+msgstr "Gnome-Kabuk eklenti güncellemelerini kontrol eder"
+
+#: Settings.ui.h:11
+msgid "Maintained by"
+msgstr "Oluşturan"
+
+#: Settings.ui.h:12
+msgid "Webpage"
+msgstr "Site Adresi"
+
+#: Settings.ui.h:13
+msgid ""
+"<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
+"Sethe <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html\">GNU "
+"General Public License, version 2 or later</a> for details.</span>"
+msgstr ""
+"<span size=\"small\">Bu program kesinlikle HİÇBİR GARANTİ sunmaz.\n"
+"<a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html\">GNU Genel "
+"Kamu Lisansı, sürüm 2 veya sonraki sürümü</a>ayrıntılar için</span>"
+
+#: Settings.ui.h:15
+msgid "About"
+msgstr "Hakkında"
