@@ -25,7 +25,7 @@ msgid ""
 "Some of your installed extensions have updated versions available.\n"
 "\n"
 msgstr ""
-"Algunas des sus extensiones tienen actualizaciones disponibles.\n\n"
+"Algunas de sus extensiones tienen actualizaciones disponibles.\n\n"
 
 #: extension.js:73
 msgid "Show updates"
@@ -70,11 +70,11 @@ msgstr "versión: "
 
 #: Settings.ui.h:10
 msgid "Checks for Gnome-Shell extension updates"
-msgstr "Comprueba actualizaciones de extensiones de Gnome'Shell"
+msgstr "Comprueba actualizaciones de extensiones de Gnome-Shell"
 
 #: Settings.ui.h:11
 msgid "Maintained by"
-msgstr "Maintenido por"
+msgstr "Mantenido por"
 
 #: Settings.ui.h:12
 msgid "Webpage"
