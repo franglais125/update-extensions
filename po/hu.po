@@ -1,0 +1,96 @@
+# Extension Update Notifier.
+# Copyright (C) 2017
+# This file is distributed under the same license as the Extension Update Notifier package.
+# Fran Glais <franglais125@gmail.com>, 2017.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 202004132339\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-07-30 16:04-0400\n"
+"PO-Revision-Date: 2020-04-13 23:39+0200\n"
+"Last-Translator: ViBE <https://github.com/ViBE-HU>\n"
+"Language-Team: Hungarian\n"
+"Language: hu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: extension.js:56
+msgid "Extension Updates Available"
+msgstr "Egyes bővítményekhez frissítések érhetőek el"
+
+#: extension.js:57
+msgid ""
+"Some of your installed extensions have updated versions available.\n"
+"\n"
+msgstr ""
+"Néhány teleptett bővítménynek új változata jelent meg.\n"
+"\n"
+
+#: extension.js:73
+msgid "Show updates"
+msgstr "Frissítések mutatása"
+
+#: Settings.ui.h:1
+msgid "Check for updates every:"
+msgstr "Frissítések ellenőrzésének gyakorisága:"
+
+#: Settings.ui.h:2
+msgid "Hours"
+msgstr "óránként"
+
+#: Settings.ui.h:3
+msgid "Days"
+msgstr "naponta"
+
+#: Settings.ui.h:4
+msgid "Weeks"
+msgstr "hetente"
+
+#: Settings.ui.h:5
+msgid "Check for updates for system-wide extensions"
+msgstr "Előteleptett bővítmények frissítéseinek ellenőrzése"
+
+#: Settings.ui.h:6
+msgid "System-wide extensions are usually installed via a package manager"
+msgstr ""Ezen bővítmények jellemzően a rendszer csomagkezelőjén keresztül "
+"telepíthetőek"
+
+#: Settings.ui.h:7
+msgid "Use transient notifications (auto dismiss)"
+msgstr "Frissítési értesítések automatikus törlése"
+
+#: Settings.ui.h:8
+msgid "Basic settings"
+msgstr "Általános beállítások"
+
+#: Settings.ui.h:9
+msgid "version: "
+msgstr "Változat: "
+
+#: Settings.ui.h:10
+msgid "Checks for Gnome-Shell extension updates"
+msgstr "Bővítmény, mely a Gnome Shell bővítmények frissítéseit ellenőrzi"
+
+#: Settings.ui.h:11
+msgid "Maintained by"
+msgstr "Fejlesztő: "
+
+#: Settings.ui.h:12
+msgid "Webpage"
+msgstr "Honlap: "
+
+#: Settings.ui.h:13
+msgid ""
+"<span size=\"small\">This program comes with ABSOLUTELY NO WARRANTY.\n"
+"Sethe <a href=\"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html\">GNU "
+"General Public License, version 2 or later</a> for details.</span>"
+msgstr ""
+"<span size=\"small\">A programra nem vállalunk semmiféle garanciát.\n"
+"Részletekért lásd: <a href=\"https://www.gnu.org/licenses/old-licenses/"
+"gpl-2.0.html\">GNU General Public License 2. vagy újabb verzió</a></span>"
+
+#: Settings.ui.h:15
+msgid "About"
+msgstr "Névjegy"
